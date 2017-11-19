@@ -22,36 +22,33 @@
 			init();
 			animate();
 			function init() {
-
+        
+        // Ce renderer fout la merde
 				/*renderer = new THREE.WebGLRenderer();
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				document.body.appendChild( renderer.domElement );*/
 
-				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1	, 1000 );
-				var controls = new THREE.OrbitControls( camera );
-				camera.position.z = 400;
+				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1	, 5000 );
+
+				controls = new THREE.OrbitControls( camera );
+				camera.position.set( 500, 20, 500 );
 				controls.update();
 				
-				// test
-
-				/*controls = new THREE.OrbitControls( camera );
-				camera.position.set( 0, 20, 100 );
-				controls.update();*/
 
 				scene = new THREE.Scene();
 				var texture = new THREE.TextureLoader().load( 'Textures/stonewalljp.jpg' );
 
-				var geometry = new THREE.BoxBufferGeometry( 100, 100, 100 );	
+				var geometry = new THREE.BoxBufferGeometry( 500, 200, 500 );	
 				var material = new THREE.MeshBasicMaterial( { map: texture } );
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.position.set(80,-40,10);
 				scene.add( mesh );
 
-				var geometry = new THREE.BoxBufferGeometry( 100, 100, 100 );	
+				/*var geometry = new THREE.BoxBufferGeometry( 100, 100, 100 );	
 				var material = new THREE.MeshBasicMaterial( { map: texture } );
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.position.set(-10,-40,10);	
-				scene.add( mesh );
+				scene.add( mesh );*/
 
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
@@ -59,8 +56,6 @@
 				document.body.appendChild( renderer.domElement );
 				
 				window.addEventListener( 'resize', onWindowResize, false );
-
-
 			}
 			function onWindowResize() {
 				camera.aspect = window.innerWidth / window.innerHeight;
