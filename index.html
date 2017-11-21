@@ -36,6 +36,7 @@
 				scene = new THREE.Scene();
 				var texture_base = new THREE.TextureLoader().load( 'Textures/stonewalljp.jpg' );
 				var texture_wall = new THREE.TextureLoader().load( 'Textures/black wood floor.jpg' );
+				var texture_white = new THREE.TextureLoader().load( 'Textures/white.jpg' );
 
 
 				//CREATION DE CONE => BASE 4 COTES
@@ -47,11 +48,18 @@
 				scene.add( cone );
 
 				
-				// CUBE
-				var geometry = new THREE.BoxBufferGeometry( 1500, 500, 1500 );	
+				// ETAGE 1 
+				var geometry = new THREE.BoxBufferGeometry( 1500, 400, 1500 );	
 				var material = new THREE.MeshBasicMaterial( { map: texture_wall } );
 				var cube = new THREE.Mesh( geometry, material );
 				cube.position.set( 0, 1000, 0 );
+				scene.add( cube );
+
+				// ETAGE 2 
+				var geometry = new THREE.BoxBufferGeometry( 1500, 400, 1500 );	
+				var material = new THREE.MeshBasicMaterial( { map: texture_white } );
+				var cube = new THREE.Mesh( geometry, material );
+				cube.position.set( 0, 1400, 0 );
 				scene.add( cube );
 
 
