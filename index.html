@@ -30,7 +30,7 @@
         	// Position et Config de l'espace et camera
 				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1	, 50000 );
 				controls = new THREE.OrbitControls( camera );
-				camera.position.set( 4000, 1500, 0 );
+				camera.position.set( 4000, 1500, 3000);
 				controls.update();
 
 			// Creation de la scene + textures
@@ -144,36 +144,34 @@
 			// radius, height, number of segment,
 				material = new THREE.MeshBasicMaterial( { color : 0x096A09 } );
 				cone = new THREE.Mesh( geometry, material );
-				cone.position.set( 698, 1570, 0 );
+				cone.position.set( 698, 1580, 0 );
 				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
-				cone.rotation.z = 0.05;
 				scene.add( cone );	
 
 
 			// Triangle ARRIERE Etage 1
 				material = new THREE.MeshBasicMaterial( { color : 0x096A09 } );
 				cone = new THREE.Mesh( geometry, material );
-				cone.position.set( -698, 1570, 0 );
+				cone.position.set( -698, 1580, 0 );
 				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
-				cone.rotation.z = 0;
 				scene.add( cone );	
 
 
-			// Triangle Partie Gauche AVANT ARRIERE Etage 1
-				geometry = new THREE.PlaneBufferGeometry( 780, 1415, 2 );
+			// Triangle axe z Partie 1 AVANT Etage 1
+				geometry = new THREE.PlaneBufferGeometry( 790, 1415, 2 );
 				material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
 				var plane = new THREE.Mesh( geometry, material );
-				plane.position.set( 0, 1580	, 320 );
+				plane.position.set( 0, 1580	, 345);
 				plane.rotation.x = -1;
-				plane.rotation.z = 1.57;
+				plane.rotation.z = 1.58;
 				scene.add( plane );
 
 
-				// Triangle Partie Gauche AVANT ARRIERE Etage 1				
+			// Triangle axe z Partie 2 AVANT Etage 1
 				plane = new THREE.Mesh( geometry, material );
-				plane.position.set( 0, 1580	, -320 );
+				plane.position.set( 0, 1580	, -345 );
 				plane.rotation.x = 1;
-				plane.rotation.z = 1.57;
+				plane.rotation.z = 1.58;
 				scene.add( plane );
 
 
@@ -222,11 +220,45 @@
 
 
 			// Triangle Partie Gauche AVANT ARRIERE Etage 1
-				geometry = new THREE.PlaneBufferGeometry( 780, 1415, 4 );
+				geometry = new THREE.PlaneBufferGeometry( 322, 1415, 4 );
 				material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
 				var plane = new THREE.Mesh( geometry, material );
-				plane.position.set( 320, 1470, 705 );
-				plane.rotation.set( 0, 1.5, 0);
+				plane.position.set( 220, 1470, 0 );
+				plane.rotation.x = 1.57;
+				plane.rotation.y = 0.9;
+				scene.add( plane );
+
+
+			// Triangle Partie Droite AVANT ARRIERE Etage 1
+				geometry = new THREE.PlaneBufferGeometry( 322, 1415, 4 );
+				material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+				var plane = new THREE.Mesh( geometry, material );
+				plane.position.set( 420, 1470, 0 );
+				plane.rotation.x = 1.57;
+				plane.rotation.y = 2.24;
+				scene.add( plane );
+
+
+
+
+
+			// Triangle Partie Gauche AVANT ARRIERE Etage 1
+				geometry = new THREE.PlaneBufferGeometry( 322, 1415, 4 );
+				material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+				var plane = new THREE.Mesh( geometry, material );
+				plane.position.set( -220, 1470, 0 );
+				plane.rotation.x = 1.57;
+				plane.rotation.y = 2.24;
+				scene.add( plane );
+
+
+			// Triangle Partie Droite AVANT ARRIERE Etage 1
+				geometry = new THREE.PlaneBufferGeometry( 322, 1415, 4 );
+				material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+				var plane = new THREE.Mesh( geometry, material );
+				plane.position.set( -420, 1470, 0 );
+				plane.rotation.x = 1.57;
+				plane.rotation.y = 0.9;
 				scene.add( plane );
 				
 
@@ -244,7 +276,7 @@
 				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
 				cone.rotation.y = 95.03;
 				scene.add( cone );
-
+/*
 			// Petit cone 1 de Cone Etage 2
 				var geometry = new THREE.ConeGeometry( 300, 300, 2 );	
 			// radius, height, number of segment,
@@ -284,7 +316,7 @@
 			// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
 				cone.rotation.y = 33.0;
 				scene.add( cone );	
-				
+*/				
 
 			// ==================== ETAGE 3 ====================
 
