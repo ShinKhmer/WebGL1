@@ -133,31 +133,51 @@
 				material = new THREE.MeshBasicMaterial( { color : 0x96CA2D } );
 				cone = new THREE.Mesh( geometry, material );
 				cone.position.set( 0, 1550, 0 ); // x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
-				cone.rotation.y = 95.04;
+				cone.rotation.y = 95.03;
 				scene.add( cone );
 
 
 
 
-			// Petit cone AVANT de Cone Etage 1
-				geometry = new THREE.ConeGeometry( 680, 500, 2 );	
+			// Triangle AVANT Etage 1
+				geometry = new THREE.ConeGeometry( 680, 450, 2 );	
 			// radius, height, number of segment,
 				material = new THREE.MeshBasicMaterial( { color : 0x096A09 } );
 				cone = new THREE.Mesh( geometry, material );
-				cone.position.set( 698, 1600, 0 );
+				cone.position.set( 698, 1570, 0 );
 				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
 				cone.rotation.z = 0.05;
 				scene.add( cone );	
 
 
-
-			// Petit cone ARRIERE de Cone Etage 1
+			// Triangle ARRIERE Etage 1
 				material = new THREE.MeshBasicMaterial( { color : 0x096A09 } );
 				cone = new THREE.Mesh( geometry, material );
-				cone.position.set( -698, 1600, 0 );
+				cone.position.set( -698, 1570, 0 );
 				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
-				cone.rotation.z = -0.05;
+				cone.rotation.z = 0;
 				scene.add( cone );	
+
+
+			// Triangle Partie Gauche AVANT ARRIERE Etage 1
+				geometry = new THREE.PlaneBufferGeometry( 780, 1415, 2 );
+				material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+				var plane = new THREE.Mesh( geometry, material );
+				plane.position.set( 0, 1580	, 320 );
+				plane.rotation.x = -1;
+				plane.rotation.z = 1.57;
+				scene.add( plane );
+
+
+				// Triangle Partie Gauche AVANT ARRIERE Etage 1				
+				plane = new THREE.Mesh( geometry, material );
+				plane.position.set( 0, 1580	, -320 );
+				plane.rotation.x = 1;
+				plane.rotation.z = 1.57;
+				scene.add( plane );
+
+
+
 
 
 
