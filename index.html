@@ -218,6 +218,16 @@
 				cone.rotation.y = 33.0;
 				cone.rotation.z = 0.05;
 				scene.add( cone );	
+
+
+
+			// Triangle Partie Gauche AVANT ARRIERE Etage 1
+				geometry = new THREE.PlaneBufferGeometry( 780, 1415, 4 );
+				material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+				var plane = new THREE.Mesh( geometry, material );
+				plane.position.set( 320, 1470, 705 );
+				plane.rotation.set( 0, 1.5, 0);
+				scene.add( plane );
 				
 
 
