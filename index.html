@@ -83,11 +83,11 @@
 				scene.add( cone );
 
 			//Cone Base LA PORTE
-				var geometry = new THREE.ConeGeometry( 400, 500, 4 );	
+				geometry = new THREE.ConeGeometry( 400, 500, 4 );	
 			// radius, height, number of segment,
 
-				var material = new THREE.MeshBasicMaterial( { map: porte } );
-				var cone = new THREE.Mesh( geometry, material );
+				material = new THREE.MeshBasicMaterial( { map: porte } );
+				cone = new THREE.Mesh( geometry, material );
 				cone.position.set( 0, 255, 820 ); // x , y , z
 				cone.rotation.y = 95.03; // rotation de l'objet sur lui meme
 				scene.add( cone );
@@ -96,29 +96,29 @@
 				// ==================== CUBES ====================
 
 				// Cube 1er étage
-				var geometry = new THREE.BoxBufferGeometry( 1200, 300, 1200 );
+				geometry = new THREE.BoxBufferGeometry( 1200, 450, 1200 );
 
-				var material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+				material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
 				var cube = new THREE.Mesh( geometry, material );
-				cube.position.set( 0, 1200, 0 );
+				cube.position.set( 0, 1150, 0 );
 				scene.add( cube );
 
 				
 				// Cube 2ème étage
-				var geometry = new THREE.BoxBufferGeometry( 1050, 250, 1050 );
+				geometry = new THREE.BoxBufferGeometry( 1100, 300, 1100 );
 
-				var material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
-				var cube = new THREE.Mesh( geometry, material );
-				cube.position.set( 0, 1650, 0 );
+				material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+				cube = new THREE.Mesh( geometry, material );
+				cube.position.set( 0, 1500, 0 );
 				scene.add( cube );
 
 
 				// Cube 3ème étage
-				var geometry = new THREE.BoxBufferGeometry( 900, 200, 900 );
+				geometry = new THREE.BoxBufferGeometry( 1000, 300, 1000 );
 
-				var material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
-				var cube = new THREE.Mesh( geometry, material );
-				cube.position.set( 0, 2000, 0 );
+				material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+				cube = new THREE.Mesh( geometry, material );
+				cube.position.set( 0, 1800, 0 );
 				scene.add( cube );
 
 
@@ -127,59 +127,76 @@
 			// ==================== ETAGE 1 ====================
 
 			//Cone Etage 1 - Toit 1
-				var geometry = new THREE.ConeGeometry( 1100, 600, 4 );	
+				geometry = new THREE.ConeGeometry( 1000, 400, 4 );	
 			// radius, height, number of segment,
 
-				var material = new THREE.MeshBasicMaterial( { color : 0x96CA2D } );
-				var cone = new THREE.Mesh( geometry, material );
-				cone.position.set( 0, 1650, 0 ); // x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
-				cone.rotation.y = 95.03;
+				material = new THREE.MeshBasicMaterial( { color : 0x96CA2D } );
+				cone = new THREE.Mesh( geometry, material );
+				cone.position.set( 0, 1550, 0 ); // x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
+				cone.rotation.y = 95.04;
 				scene.add( cone );
 
 
 
 
-			// Petit cone 1 de Cone Etage 1 - DEVANT
-				var geometry = new THREE.ConeGeometry( 750, 500, 2 );	
+			// Petit cone AVANT de Cone Etage 1
+				geometry = new THREE.ConeGeometry( 680, 500, 2 );	
 			// radius, height, number of segment,
-				var material = new THREE.MeshBasicMaterial( { color : 0x096A09 } );
-				var cone = new THREE.Mesh( geometry, material );
-				cone.position.set( 760, 1600, 0 );
+				material = new THREE.MeshBasicMaterial( { color : 0x096A09 } );
+				cone = new THREE.Mesh( geometry, material );
+				cone.position.set( 698, 1600, 0 );
 				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
-				cone.rotation.z = 0.08;
+				cone.rotation.z = 0.05;
 				scene.add( cone );	
 
 
 
-			// Petit cone 2 de Cone Etage 1 - DERRIERE
-				var geometry = new THREE.ConeGeometry( 750, 500, 2 );	
-			// radius, height, number of segment,
-				var material = new THREE.MeshBasicMaterial( { color : 0x096A09 } );
-				var cone = new THREE.Mesh( geometry, material );
-				cone.position.set( -1200, 1600, 0 );
+			// Petit cone ARRIERE de Cone Etage 1
+				material = new THREE.MeshBasicMaterial( { color : 0x096A09 } );
+				cone = new THREE.Mesh( geometry, material );
+				cone.position.set( -698, 1600, 0 );
 				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
-				cone.rotation.z = -0.08;
+				cone.rotation.z = -0.05;
 				scene.add( cone );	
 
 
-			// Petit cone 3 de Cone Etage 1
-				var geometry = new THREE.ConeGeometry( 500, 500, 2 );	
-			// radius, height, number of segment,
+
+			// Petit cone GAUCHE AVANT de Cone Etage 1
+				var geometry = new THREE.ConeGeometry( 200, 250, 2 );	
+				// radius, height, number of segment,
 				var material = new THREE.MeshBasicMaterial( { color : 0x096A09 } );
 				var cone = new THREE.Mesh( geometry, material );
-				cone.position.set( -50, 1550, 1200 );
+				cone.position.set( 320, 1470, 705 );
 				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
 				cone.rotation.y = 33.0;
+				cone.rotation.z = -0.05;
 				scene.add( cone );	
 
-			// Petit cone 4 de Cone Etage 1
-				var geometry = new THREE.ConeGeometry( 500, 500, 2 );	
-			// radius, height, number of segment,
-				var material = new THREE.MeshBasicMaterial( { color : 0x096A09 } );
+
+			// Petit cone GAUCHE ARRIERE de Cone Etage 1
 				var cone = new THREE.Mesh( geometry, material );
-				cone.position.set( 50, 1550, -1200 );
+				cone.position.set( -320, 1470, 705 );
 				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
 				cone.rotation.y = 33.0;
+				cone.rotation.z = -0.05;
+				scene.add( cone );	
+
+
+			// Petit cone DROITE AVANT de Cone Etage 1
+				var cone = new THREE.Mesh( geometry, material );
+				cone.position.set( 320, 1470, -705 );
+				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
+				cone.rotation.y = 33.0;
+				cone.rotation.z = 0.05;
+				scene.add( cone );	
+
+
+			// Petit cone DROITE ARRIERE de Cone Etage 1
+				var cone = new THREE.Mesh( geometry, material );
+				cone.position.set( -320, 1470, -705 );
+				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
+				cone.rotation.y = 33.0;
+				cone.rotation.z = 0.05;
 				scene.add( cone );	
 				
 
@@ -188,12 +205,12 @@
 
 
 			//Cone Etage 2
-				var geometry = new THREE.ConeGeometry( 900, 600, 4 );	
+				var geometry = new THREE.ConeGeometry( 900, 400, 4 );	
 			// radius, height, number of segment,
 
 				var material = new THREE.MeshBasicMaterial( { color : 0xff6fff } );
 				var cone = new THREE.Mesh( geometry, material );
-				cone.position.set( 0, 2050, 0 );
+				cone.position.set( 0, 1850, 0 );
 				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
 				cone.rotation.y = 95.03;
 				scene.add( cone );
@@ -242,12 +259,12 @@
 			// ==================== ETAGE 3 ====================
 
 			//Cone Etage 3
-				var geometry = new THREE.ConeGeometry( 900, 700, 4 );	
+				var geometry = new THREE.ConeGeometry( 900, 400, 4 );	
 			// radius, height, number of segment,
 
 				var material = new THREE.MeshBasicMaterial( { color : 0x4f6fff } );
 				var cone = new THREE.Mesh( geometry, material );
-				cone.position.set( 0, 2450, 0 );
+				cone.position.set( 0, 2100, 0 );
 				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
 				cone.rotation.y = 95.03;
 				scene.add( cone );
