@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>three.js cube</title>
+		<title>three.js castle</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
 		<style>
@@ -22,45 +22,384 @@
 			init();
 			animate();
 			function init() {
+
+			// test
+			// test2
+			// Test branche
         
-				/*renderer = new THREE.WebGLRenderer();
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				document.body.appendChild( renderer.domElement );*/
-
-				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1	, 5000 );
-
+        	// Position et Config de l'espace et camera
+				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1	, 50000 );
 				controls = new THREE.OrbitControls( camera );
-				camera.position.set( 2000, 1500, 0 );
+				camera.position.set( 4000, 1500, 3000);
 				controls.update();
 
+			// Creation de la scene + textures
 				scene = new THREE.Scene();
 				var texture_base = new THREE.TextureLoader().load( 'Textures/stonewalljp.jpg' );
-				var texture_wall = new THREE.TextureLoader().load( 'Textures/black wood floor.jpg' );
-				var texture_white = new THREE.TextureLoader().load( 'Textures/white.jpg' );
+				var texture_base2 = new THREE.TextureLoader().load( 'Textures/stonewalljp.jpg' );
+				var porte = new THREE.TextureLoader().load('Textures/bois.jpg');
+
+			//repetition de la texture et dimension configuré
+				texture_base.wrapS = THREE.RepeatWrapping;
+				texture_base.wrapT = THREE.RepeatWrapping;
+				texture_base.repeat.set( 4, 4 );
+			// pour les murs : 
+				texture_base2.wrapS = THREE.RepeatWrapping;
+				texture_base2.wrapT = THREE.RepeatWrapping;
+				texture_base2.repeat.set( 2, 1 );
+			
+			/*	//ARBRES
+			var tree = new THREE.Tree({
+    		generations : 4,        // # for branch' hierarchy
+    		length      : 4.0,      // length of root branch
+    		uvLength    : 16.0,     // uv.v ratio against geometry length (recommended is generations * length)
+   			radius      : 0.2,      // radius of root branch
+    		radiusSegments : 8,     // # of radius segments for each branch geometry
+    		heightSegments : 8      // # of height segments for each branch geometry
+			});
+
+			var geometry = THREE.TreeGeometry.build(tree);
+
+			var mesh = new THREE.Mesh(
+    		geometry, new THREE.MeshPhongMaterial({color : 0x096A09}) // set any material
+    		);
+			mesh.position.set( 2000, 230, 0 ); // x , y , z
+			scene.add(mesh);
+			*/
 
 
-				//CREATION DE CONE => BASE 4 COTES
-				var geometry = new THREE.ConeGeometry( 1500, 2500, 4 );	// radius, height, number of segment,
+
+
+			// ==================== BASE ====================
+
+			//CREATION DE CONE => BASE 4 COTES
+				var geometry = new THREE.ConeGeometry( 1500, 2500, 4 );	
+			// radius, height, number of segment,
+
 				var material = new THREE.MeshBasicMaterial( { map: texture_base } );
 				var cone = new THREE.Mesh( geometry, material );
-				cone.position.set( 0, 1250, 0 );
+				cone.position.set( 0, 1250, 0 ); // x , y , z
+				cone.rotation.y = 95.03; // rotation de l'objet sur lui meme
+				scene.add( cone );
+
+			//Cone Base LA PORTE
+				geometry = new THREE.ConeGeometry( 400, 500, 4 );	
+			// radius, height, number of segment,
+
+				material = new THREE.MeshBasicMaterial( { map: porte } );
+				cone = new THREE.Mesh( geometry, material );
+				cone.position.set( 0, 255, 820 ); // x , y , z
+				cone.rotation.y = 95.03; // rotation de l'objet sur lui meme
+				scene.add( cone );
+
+
+				// ==================== CUBES ====================
+
+				// Cube 1er étage
+				geometry = new THREE.BoxBufferGeometry( 1200, 450, 1200 );
+
+				material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+				var cube = new THREE.Mesh( geometry, material );
+				cube.position.set( 0, 1150, 0 );
+				scene.add( cube );
+
+				
+				// Cube 2ème étage
+				geometry = new THREE.BoxBufferGeometry( 1100, 300, 1100 );
+
+				material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+				cube = new THREE.Mesh( geometry, material );
+				cube.position.set( 0, 1500, 0 );
+				scene.add( cube );
+
+
+				// Cube 3ème étage
+				geometry = new THREE.BoxBufferGeometry( 1000, 300, 1000 );
+
+				material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+				cube = new THREE.Mesh( geometry, material );
+				cube.position.set( 0, 1800, 0 );
+				scene.add( cube );
+
+
+
+
+			// ==================== ETAGE 1 ====================
+
+			//Cone Etage 1 - Toit 1
+				geometry = new THREE.ConeGeometry( 1000, 400, 4 );	
+			// radius, height, number of segment,
+
+				material = new THREE.MeshBasicMaterial( { color : 0x96CA2D } );
+				cone = new THREE.Mesh( geometry, material );
+				cone.position.set( 0, 1550, 0 ); // x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
 				cone.rotation.y = 95.03;
 				scene.add( cone );
 
-				
-				// ETAGE 1 
-				var geometry = new THREE.BoxBufferGeometry( 1500, 400, 1500 );	
-				var material = new THREE.MeshBasicMaterial( { map: texture_wall } );
-				var cube = new THREE.Mesh( geometry, material );
-				cube.position.set( 0, 1000, 0 );
-				scene.add( cube );
 
-				// ETAGE 2 
-				var geometry = new THREE.BoxBufferGeometry( 1500, 400, 1500 );	
-				var material = new THREE.MeshBasicMaterial( { map: texture_white } );
-				var cube = new THREE.Mesh( geometry, material );
-				cube.position.set( 0, 1400, 0 );
-				scene.add( cube );
+
+
+			// Triangle AVANT Etage 1
+				geometry = new THREE.ConeGeometry( 680, 450, 2 );	
+			// radius, height, number of segment,
+				material = new THREE.MeshBasicMaterial( { color : 0x096A09 } );
+				cone = new THREE.Mesh( geometry, material );
+				cone.position.set( 698, 1580, 0 );
+				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
+				scene.add( cone );	
+
+
+			// Triangle ARRIERE Etage 1
+				material = new THREE.MeshBasicMaterial( { color : 0x096A09 } );
+				cone = new THREE.Mesh( geometry, material );
+				cone.position.set( -698, 1580, 0 );
+				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
+				scene.add( cone );	
+
+
+			// Triangle axe z Partie 1 AVANT Etage 1
+				geometry = new THREE.PlaneBufferGeometry( 790, 1415, 2 );
+				material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+				var plane = new THREE.Mesh( geometry, material );
+				plane.position.set( 0, 1580	, 345);
+				plane.rotation.x = -1;
+				plane.rotation.z = 1.58;
+				scene.add( plane );
+
+
+			// Triangle axe z Partie 2 AVANT Etage 1
+				plane = new THREE.Mesh( geometry, material );
+				plane.position.set( 0, 1580	, -345 );
+				plane.rotation.x = 1;
+				plane.rotation.z = 1.58;
+				scene.add( plane );
+
+
+
+
+
+
+			// Petit cone GAUCHE AVANT de Cone Etage 1
+				var geometry = new THREE.ConeGeometry( 200, 250, 2 );	
+				// radius, height, number of segment,
+				var material = new THREE.MeshBasicMaterial( { color : 0x096A09 } );
+				var cone = new THREE.Mesh( geometry, material );
+				cone.position.set( 320, 1470, 705 );
+				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
+				cone.rotation.y = 33.0;
+				cone.rotation.z = -0.05;
+				scene.add( cone );	
+
+
+			// Petit cone GAUCHE ARRIERE de Cone Etage 1
+				var cone = new THREE.Mesh( geometry, material );
+				cone.position.set( -320, 1470, 705 );
+				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
+				cone.rotation.y = 33.0;
+				cone.rotation.z = -0.05;
+				scene.add( cone );	
+
+
+			// Petit cone DROITE AVANT de Cone Etage 1
+				var cone = new THREE.Mesh( geometry, material );
+				cone.position.set( 320, 1470, -705 );
+				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
+				cone.rotation.y = 33.0;
+				cone.rotation.z = 0.05;
+				scene.add( cone );	
+
+
+			// Petit cone DROITE ARRIERE de Cone Etage 1
+				var cone = new THREE.Mesh( geometry, material );
+				cone.position.set( -320, 1470, -705 );
+				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
+				cone.rotation.y = 33.0;
+				cone.rotation.z = 0.05;
+				scene.add( cone );	
+
+
+
+			// Triangle Partie Gauche AVANT ARRIERE Etage 1
+				geometry = new THREE.PlaneBufferGeometry( 322, 1415, 4 );
+				material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+				var plane = new THREE.Mesh( geometry, material );
+				plane.position.set( 220, 1470, 0 );
+				plane.rotation.x = 1.57;
+				plane.rotation.y = 0.9;
+				scene.add( plane );
+
+
+			// Triangle Partie Droite AVANT ARRIERE Etage 1
+				geometry = new THREE.PlaneBufferGeometry( 322, 1415, 4 );
+				material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+				var plane = new THREE.Mesh( geometry, material );
+				plane.position.set( 420, 1470, 0 );
+				plane.rotation.x = 1.57;
+				plane.rotation.y = 2.24;
+				scene.add( plane );
+
+
+
+
+
+			// Triangle Partie Gauche AVANT ARRIERE Etage 1
+				geometry = new THREE.PlaneBufferGeometry( 322, 1415, 4 );
+				material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+				var plane = new THREE.Mesh( geometry, material );
+				plane.position.set( -220, 1470, 0 );
+				plane.rotation.x = 1.57;
+				plane.rotation.y = 2.24;
+				scene.add( plane );
+
+
+			// Triangle Partie Droite AVANT ARRIERE Etage 1
+				geometry = new THREE.PlaneBufferGeometry( 322, 1415, 4 );
+				material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+				var plane = new THREE.Mesh( geometry, material );
+				plane.position.set( -420, 1470, 0 );
+				plane.rotation.x = 1.57;
+				plane.rotation.y = 0.9;
+				scene.add( plane );
+				
+
+
+			// ==================== ETAGE 2 ====================
+
+
+			//Cone Etage 2
+				var geometry = new THREE.ConeGeometry( 900, 400, 4 );	
+			// radius, height, number of segment,
+
+				var material = new THREE.MeshBasicMaterial( { color : 0xff6fff } );
+				var cone = new THREE.Mesh( geometry, material );
+				cone.position.set( 0, 1850, 0 );
+				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
+				cone.rotation.y = 95.03;
+				scene.add( cone );
+/*
+			// Petit cone 1 de Cone Etage 2
+				var geometry = new THREE.ConeGeometry( 300, 300, 2 );	
+			// radius, height, number of segment,
+				var material = new THREE.MeshBasicMaterial( { color : 0x096A09 } );
+				var cone = new THREE.Mesh( geometry, material );
+				cone.position.set( -1000, 1850, -70 );
+				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
+				cone.rotation.y = 0.0;
+				scene.add( cone );	
+
+			// Petit cone 2 de Cone Etage 2
+				var geometry = new THREE.ConeGeometry( 300, 300, 2 );	
+			// radius, height, number of segment,
+				var material = new THREE.MeshBasicMaterial( { color : 0x096A09 } );
+				var cone = new THREE.Mesh( geometry, material );
+				cone.position.set( 1000, 1850, -50 );
+				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
+				cone.rotation.y = 0.0;
+				scene.add( cone );	
+
+			// Petit cone 3 de Cone Etage 2
+				var geometry = new THREE.ConeGeometry( 300, 300, 2 );	
+			// radius, height, number of segment,
+				var material = new THREE.MeshBasicMaterial( { color : 0x096A09 } );
+				var cone = new THREE.Mesh( geometry, material );
+				cone.position.set( 30, 1850, 1000 );
+				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere ) 
+				cone.rotation.y = 33.0;
+				scene.add( cone );	
+
+			// Petit cone 4 de Cone Etage 2
+				var geometry = new THREE.ConeGeometry( 300, 300, 2 );	
+			// radius, height, number of segment,
+				var material = new THREE.MeshBasicMaterial( { color : 0x096A09 } );
+				var cone = new THREE.Mesh( geometry, material );
+				cone.position.set( 30, 1850, -1000 );
+			// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
+				cone.rotation.y = 33.0;
+				scene.add( cone );	
+*/				
+
+			// ==================== ETAGE 3 ====================
+
+			//Cone Etage 3
+				var geometry = new THREE.ConeGeometry( 900, 400, 4 );	
+			// radius, height, number of segment,
+
+				var material = new THREE.MeshBasicMaterial( { color : 0x4f6fff } );
+				var cone = new THREE.Mesh( geometry, material );
+				cone.position.set( 0, 2100, 0 );
+				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
+				cone.rotation.y = 95.03;
+				scene.add( cone );
+
+			// Petit cone 1 de Cone Etage 3
+				var geometry = new THREE.ConeGeometry( 300, 300, 2 );	
+			// radius, height, number of segment,
+				var material = new THREE.MeshBasicMaterial( { color : 0x09BA09 } );
+				var cone = new THREE.Mesh( geometry, material );
+				cone.position.set( -700, 2250, -70 );
+				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
+				cone.rotation.y = 0.0;
+				scene.add( cone );	
+
+			// Petit cone 2 de Cone Etage 2
+				var geometry = new THREE.ConeGeometry( 300, 300, 2 );	
+			// radius, height, number of segment,
+				var material = new THREE.MeshBasicMaterial( { color : 0x09BA09 } );
+				var cone = new THREE.Mesh( geometry, material );
+				cone.position.set( 700, 2250, -50 );
+				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
+				cone.rotation.y = 0.0;
+				scene.add( cone );	
+
+			// Petit cone 3 de Cone Etage 2
+				var geometry = new THREE.ConeGeometry( 300, 300, 2 );	
+			// radius, height, number of segment,
+				var material = new THREE.MeshBasicMaterial( { color : 0x09BA09 } );
+				var cone = new THREE.Mesh( geometry, material );
+				cone.position.set( 30, 2250, 800 );
+				// x (coté ), y ( hauteur) , z ( vers face ou vers arriere ) 
+				cone.rotation.y = 33.0;
+				scene.add( cone );	
+
+			// Petit cone 4 de Cone Etage 2
+				var geometry = new THREE.ConeGeometry( 300, 300, 2 );	
+			// radius, height, number of segment,
+				var material = new THREE.MeshBasicMaterial( { color : 0x09BA09 } );
+				var cone = new THREE.Mesh( geometry, material );
+				cone.position.set( 30, 2250, -800 );
+			// x (coté ), y ( hauteur) , z ( vers face ou vers arriere )
+				cone.rotation.y = 33.0;
+				scene.add( cone );	
+			
+
+			// ==================== DECOR ====================
+
+
+			// LES MURS 
+				var geometry = new THREE.BoxBufferGeometry( 2300, 500, 200 );
+				// longueur, height ( hauteur ), profondeur
+				var material = new THREE.MeshBasicMaterial( { map : texture_base2 } );
+				var mesh = new THREE.Mesh( geometry, material );
+				mesh.position.set( 2000, 230, 0 ); // x , y , z
+				scene.add( mesh );
+
+				//MUR 2
+				var geometry = new THREE.BoxBufferGeometry( 200, 500, 2300 );
+				// longueur, height ( hauteur ), profondeur
+				var material = new THREE.MeshBasicMaterial( { map : texture_base2 } );
+				var mesh = new THREE.Mesh( geometry, material );
+				mesh.position.set( 3100, 230, 1080 ); // x , y , z
+				scene.add( mesh );
+
+				// MUR 3
+				var geometry = new THREE.BoxBufferGeometry( 2300, 500, 200 );
+				// longueur, height ( hauteur ), profondeur
+				var material = new THREE.MeshBasicMaterial( { map : texture_base2 } );
+				var mesh = new THREE.Mesh( geometry, material );
+				mesh.position.set( 2000, 230, 2150 ); // x , y , z
+				scene.add( mesh );
+
+
 
 
 				// APPLICATION DES MODIFICATIONS
@@ -78,10 +417,6 @@
 			}
 			function animate() {
 				requestAnimationFrame( animate );
-				//ROTATION
-				//mesh.rotation.x += 0.005;
-				//mesh.rotation.y += 0.01;
-				//controls.update();
 				renderer.render( scene, camera );
 			}
 		</script>
