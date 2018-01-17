@@ -42,17 +42,12 @@
 			}
 		</style>
 	</head>
-
-
-
 	<body>
     <script src="threejs/build/three.js"></script>
-<!-- Collada Pour les 3D WareHouse, Mettre en place des objets prefais -->
-		<script type="text/javascript" src="examples\js\loadersColladaLoader.js"></script>
+		<!-- Collada Pour les 3D WareHouse, Mettre en place des objets prefais -->
+		<script type="text/javascript" src="threejs/examples/js/loadersColladaLoader.js"></script>
 <!--aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-->
-		<script src="threejs/examples/js/controls/OrbitControls.js"></script>
-		<script src="threejs/examples/js/PointerLockControls.js"></script>
-
+    <script src="threejs/examples/js/controls/PointerLockControls.js"></script>
 		<div id="blocker">
 
 			<div id="instructions">
@@ -64,7 +59,6 @@
 		</div>
 
 		<script>
-
 			var camera, scene, renderer, controls;
 			var objects = [];
 			var raycaster;
@@ -88,7 +82,6 @@
 				var pointerlockerror = function ( event ) {
 					instructions.style.display = '';
 				};
-
 				// Hook pointer lock state change events
 				document.addEventListener( 'pointerlockchange', pointerlockchange, false );
 				document.addEventListener( 'mozpointerlockchange', pointerlockchange, false );
@@ -129,11 +122,11 @@
 				var onKeyDown = function ( event ) {
 					switch ( event.keyCode ) {
 						case 38: // up
-						case 87: // w
+						case 90: // z
 							moveForward = true;
 							break;
 						case 37: // left
-						case 65: // a
+						case 81: // q
 							moveLeft = true; break;
 						case 40: // down
 						case 83: // s
@@ -152,11 +145,11 @@
 				var onKeyUp = function ( event ) {
 					switch( event.keyCode ) {
 						case 38: // up
-						case 87: // w
+						case 90: // w
 							moveForward = false;
 							break;
 						case 37: // left
-						case 65: // a
+						case 81: // a
 							moveLeft = false;
 							break;
 						case 40: // down
@@ -208,33 +201,6 @@
 					scene.add( box );
 					objects.push( box );
 				}
-
-/*---------------------------------------------SKYBOX-------------------------------------------------------------*/
-				        var materialArray = [];
-				        materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'Textures/skybox_left.png' ) }));
-				        materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'Textures/skybox_right.png' ) }));
-				        materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'Textures/skybox_top.png' ) }));
-				        materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'Textures/skybox_bottom.png' ) }));
-				        materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'Textures/skybox_back.png' ) }));
-				        materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'Textures/skybox_front.png' ) }));
-				                for (var i = 0; i < 6; i++)
-				                   materialArray[i].side = THREE.BackSide;
-				                var skyboxMaterial = new THREE.MeshFaceMaterial( materialArray );
-				                var skyboxGeom = new THREE.CubeGeometry( 5000, 5000, 5000, 1, 1, 1 );
-				                var skybox = new THREE.Mesh( skyboxGeom, skyboxMaterial );
-				                scene.add( skybox );
-/*----------------------------------------------------------------------------------------------------------------------*/
-
-/*---------------------------- CUBE DE TEST ----------------------------*/
-				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
-				camera.position.z = 400;
-				scene = new THREE.Scene();
-				var geometry = new THREE.BoxBufferGeometry( 200, 200, 200 );
-				var material = new THREE.MeshBasicMaterial( { color: 0xA2FF7A } );
-				mesh = new THREE.Mesh( geometry, material );
-				scene.add( mesh );
-/*--------------------------------------------------------------------------*/
-
 				//
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
