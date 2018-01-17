@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>three.js - pointerlock controls</title>
+    <title>three.js - Projet</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <style>
@@ -10,17 +10,19 @@
         height: 100%;
       }
       body {
-        background-color: #ffffff;
+        background-color: #f0f0f0;
         margin: 0;
         overflow: hidden;
         font-family: arial;
       }
+      
       #blocker {
         position: absolute;
         width: 100%;
         height: 100%;
         background-color: rgba(0,0,0,0.5);
       }
+
       #instructions {
         width: 100%;
         height: 100%;
@@ -43,17 +45,17 @@
     </style>
   </head>
   <body>
-    <script src="../build/three.js"></script>
-    <script src="js/controls/PointerLockControls.js"></script>
+    <script src="threejs/build/three.js"></script>
+    <!--<script src="threejs/examples/js/controls/OrbitControls.js"></script>-->
+    <script src="threejs/examples/js/controls/PointerLockControls.js"></script>
+
 
     <div id="blocker">
-
       <div id="instructions">
-        <span style="font-size:40px">Click to play</span>
+        <span style="font-size:40px">Click to continue</span>
         <br />
-        (W, A, S, D = Move, SPACE = Jump, MOUSE = Look around)
+        (Z, Q, S, D = Move, SPACE = Jump, MOUSE = Look around)
       </div>
-
     </div>
 
     <script>
@@ -63,6 +65,8 @@
       var blocker = document.getElementById( 'blocker' );
       var instructions = document.getElementById( 'instructions' );
       // http://www.html5rocks.com/en/tutorials/pointerlock/intro/
+
+      // POINTERLOCK
       var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
       if ( havePointerLock ) {
         var element = document.body;
@@ -96,6 +100,8 @@
       } else {
         instructions.innerHTML = 'Your browser doesn\'t seem to support Pointer Lock API';
       }
+
+
       init();
       animate();
       var controlsEnabled = false;
@@ -107,6 +113,7 @@
       var prevTime = performance.now();
       var velocity = new THREE.Vector3();
       var direction = new THREE.Vector3();
+      
       function init() {
         camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
         scene = new THREE.Scene();
@@ -117,15 +124,17 @@
         scene.add( light );
         controls = new THREE.PointerLockControls( camera );
         scene.add( controls.getObject() );
+
         var onKeyDown = function ( event ) {
           switch ( event.keyCode ) {
             case 38: // up
-            case 87: // w
+            case 90: // z
               moveForward = true;
               break;
             case 37: // left
-            case 65: // a
-              moveLeft = true; break;
+            case 81: // q
+              moveLeft = true; 
+              break;
             case 40: // down
             case 83: // s
               moveBackward = true;
@@ -140,14 +149,15 @@
               break;
           }
         };
+
         var onKeyUp = function ( event ) {
           switch( event.keyCode ) {
             case 38: // up
-            case 87: // w
+            case 90: // z
               moveForward = false;
               break;
             case 37: // left
-            case 65: // a
+            case 81: // q
               moveLeft = false;
               break;
             case 40: // down
@@ -166,6 +176,7 @@
         // floor
         var floorGeometry = new THREE.PlaneGeometry( 2000, 2000, 100, 100 );
         floorGeometry.rotateX( - Math.PI / 2 );
+        
         for ( var i = 0, l = floorGeometry.vertices.length; i < l; i ++ ) {
           var vertex = floorGeometry.vertices[ i ];
           vertex.x += Math.random() * 20 - 10;
@@ -182,7 +193,7 @@
         var floor = new THREE.Mesh( floorGeometry, floorMaterial );
         scene.add( floor );
         // objects
-        var boxGeometry = new THREE.BoxGeometry( 20, 20, 20 );
+        /*var boxGeometry = new THREE.BoxGeometry( 20, 20, 20 );
         for ( var i = 0, l = boxGeometry.faces.length; i < l; i ++ ) {
           var face = boxGeometry.faces[ i ];
           face.vertexColors[ 0 ] = new THREE.Color().setHSL( Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
@@ -198,8 +209,19 @@
           box.position.z = Math.floor( Math.random() * 20 - 10 ) * 20;
           scene.add( box );
           objects.push( box );
-        }
-        //
+        }*/
+
+
+        var geometry = new THREE.BoxBufferGeometry( 10000, 1000, 1000 );
+        var material = new THREE.MeshBasicMaterial( {color: 0x777788} );
+        cube.position.set( 0, 1150, 0 );
+        var cube = new THREE.Mesh( geometry, material );
+        scene.add( cube );
+        
+
+
+
+        // APPLICATION DES MODIFICATIONS
         renderer = new THREE.WebGLRenderer();
         renderer.setPixelRatio( window.devicePixelRatio );
         renderer.setSize( window.innerWidth, window.innerHeight );
@@ -207,11 +229,13 @@
         //
         window.addEventListener( 'resize', onWindowResize, false );
       }
+
       function onWindowResize() {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize( window.innerWidth, window.innerHeight );
       }
+
       function animate() {
         requestAnimationFrame( animate );
         if ( controlsEnabled === true ) {
@@ -245,6 +269,7 @@
         }
         renderer.render( scene, camera );
       }
+
     </script>
   </body>
 </html>
