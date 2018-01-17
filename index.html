@@ -46,10 +46,9 @@
     <script src="threejs/build/three.js"></script>
 		<!-- Collada Pour les 3D WareHouse, Mettre en place des objets prefais -->
 		<script type="text/javascript" src="threejs/examples/js/loadersColladaLoader.js"></script>
-<!--aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-->
+    <!-- PointerLock -->
     <script src="threejs/examples/js/controls/PointerLockControls.js"></script>
 		<div id="blocker">
-
 			<div id="instructions">
 				<span style="font-size:40px">Click to play</span>
 				<br />
@@ -66,7 +65,10 @@
 			var instructions = document.getElementById( 'instructions' );
 			// http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 			var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
-			if ( havePointerLock ) {
+
+
+
+      if ( havePointerLock ) {
 				var element = document.body;
 				var pointerlockchange = function ( event ) {
 					if ( document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element ) {
@@ -98,6 +100,8 @@
 			} else {
 				instructions.innerHTML = 'Your browser doesn\'t seem to support Pointer Lock API';
 			}
+
+
 			init();
 			animate();
 			var controlsEnabled = false;
@@ -165,7 +169,7 @@
 				document.addEventListener( 'keydown', onKeyDown, false );
 				document.addEventListener( 'keyup', onKeyUp, false );
 				raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, - 1, 0 ), 0, 10 );
-				// floor
+/*--------------------------------floor---------------------------------------------*/
 				var floorGeometry = new THREE.PlaneGeometry( 2000, 2000, 100, 100 );
 				floorGeometry.rotateX( - Math.PI / 2 );
 				for ( var i = 0, l = floorGeometry.vertices.length; i < l; i ++ ) {
@@ -181,27 +185,53 @@
 					face.vertexColors[ 2 ] = new THREE.Color().setHSL( Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
 				}
 				var floorMaterial = new THREE.MeshBasicMaterial( { vertexColors: THREE.VertexColors } );
+				//var floorMaterial = new THREE.MeshBasicMaterial( { color: 0x00000 } );
 				var floor = new THREE.Mesh( floorGeometry, floorMaterial );
 				scene.add( floor );
-				// objects
-				var boxGeometry = new THREE.BoxGeometry( 20, 20, 20 );
-				for ( var i = 0, l = boxGeometry.faces.length; i < l; i ++ ) {
-					var face = boxGeometry.faces[ i ];
-					face.vertexColors[ 0 ] = new THREE.Color().setHSL( Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-					face.vertexColors[ 1 ] = new THREE.Color().setHSL( Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-					face.vertexColors[ 2 ] = new THREE.Color().setHSL( Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-				}
-				for ( var i = 0; i < 500; i ++ ) {
-					var boxMaterial = new THREE.MeshPhongMaterial( { specular: 0xffffff, flatShading: true, vertexColors: THREE.VertexColors } );
-					boxMaterial.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-					var box = new THREE.Mesh( boxGeometry, boxMaterial );
-					box.position.x = Math.floor( Math.random() * 20 - 10 ) * 20;
-					box.position.y = Math.floor( Math.random() * 20 ) * 20 + 10;
-					box.position.z = Math.floor( Math.random() * 20 - 10 ) * 20;
-					scene.add( box );
-					objects.push( box );
-				}
-				//
+/*---------------------------------------POUR LE SON UN listener --------------------------*/
+				// create an AudioListener and add it to the camera
+				var listener = new THREE.AudioListener();
+				camera.add( listener );
+
+				// create the PositionalAudio object (passing in the listener)
+				var sound = new THREE.PositionalAudio( listener );
+
+				// load a sound and set it as the PositionalAudio object's buffer
+				var audioLoader = new THREE.AudioLoader();
+				audioLoader.load( 'sounds/test_song.ogg', function( buffer ) {
+					sound.setBuffer( buffer );
+					sound.setRefDistance( 20 );
+					sound.play();
+				});
+
+				// create an object for the sound to play from
+				var sphere = new THREE.SphereGeometry( 20, 32, 16 );
+				var material = new THREE.MeshPhongMaterial( { color: 0xff2200 } );
+				var mesh = new THREE.Mesh( sphere, material );
+				scene.add( mesh );
+
+				// finally add the sound to the mesh
+				mesh.add( sound );
+/*---------------------------------------------------------------------------------------- */
+
+/*---------------------------------------------------------------------------------------- */
+        var materialArray = [];
+        materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'Textures/skybox_left.png' ) }));
+        materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'Textures/skybox_right.png' ) }));
+        materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'Textures/skybox_top.png' ) }));
+        materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'Textures/skybox_bottom.png' ) }));
+        materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'Textures/skybox_back.png' ) }));
+        materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'Textures/skybox_front.png' ) }));
+        for (var i = 0; i < 6; i++)
+           materialArray[i].side = THREE.BackSide;
+        var skyboxMaterial = new THREE.MeshFaceMaterial( materialArray );
+        var skyboxGeom = new THREE.CubeGeometry( 50000, 50000, 50000, 1, 1, 1 );
+        var skybox = new THREE.Mesh( skyboxGeom, skyboxMaterial );
+        scene.add( skybox );
+/*---------------------------------------------------------------------------------------- */
+
+
+/*---------------------------------------------------------------------------------------- */
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
