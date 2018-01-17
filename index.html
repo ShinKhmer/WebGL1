@@ -42,6 +42,9 @@
 			}
 		</style>
 	</head>
+
+
+
 	<body>
     <script src="threejs/build/three.js"></script>
 		<script src="threejs/examples/js/controls/OrbitControls.js"></script>
@@ -58,6 +61,11 @@
 		</div>
 
 		<script>
+		function nique_ta_race
+		{
+			while(1)
+			echo "NIQUE TA RACE !";
+		}
 			var camera, scene, renderer, controls;
 			var objects = [];
 			var raycaster;
@@ -82,7 +90,21 @@
 					instructions.style.display = '';
 				};
 
-      
+/*---------------------------------------------SKYBOX-------------------------------------------------------------*/
+        var materialArray = [];
+        materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'Textures/skybox_left.png' ) }));
+        materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'Textures/skybox_right.png' ) }));
+        materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'Textures/skybox_top.png' ) }));
+        materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'Textures/skybox_bottom.png' ) }));
+        materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'Textures/skybox_back.png' ) }));
+        materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'Textures/skybox_front.png' ) }));
+                for (var i = 0; i < 6; i++)
+                   materialArray[i].side = THREE.BackSide;
+                var skyboxMaterial = new THREE.MeshFaceMaterial( materialArray );
+                var skyboxGeom = new THREE.CubeGeometry( 5000, 5000, 5000, 1, 1, 1 );
+                var skybox = new THREE.Mesh( skyboxGeom, skyboxMaterial );
+                scene.add( skybox );
+/*----------------------------------------------------------------------------------------------------------------------*/
 
 				// Hook pointer lock state change events
 				document.addEventListener( 'pointerlockchange', pointerlockchange, false );
@@ -203,6 +225,19 @@
 					scene.add( box );
 					objects.push( box );
 				}
+
+
+/*---------------------------- CUBE DE TEST ----------------------------*/
+				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
+				camera.position.z = 400;
+				scene = new THREE.Scene();
+				var texture = new THREE.TextureLoader().load( 'textures/crate.gif' );
+				var geometry = new THREE.BoxBufferGeometry( 200, 200, 200 );
+				var material = new THREE.MeshBasicMaterial( { map: texture } );
+				mesh = new THREE.Mesh( geometry, material );
+				scene.add( mesh );
+
+
 				//
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
